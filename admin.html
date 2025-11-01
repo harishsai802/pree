@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Update Content</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific Admin UI Styles - Borrowing from Wisher Panel */
+        .admin-container {
+            background: #fffafa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .admin-container h2 { color: #d81b60; margin-bottom: 20px; }
+        .admin-container input { width: 90%; padding: 10px; margin: 5px 0 15px 0; border: 1px solid #ffc0cb; border-radius: 5px; }
+        .admin-container label { display: block; font-weight: 600; color: #4a4a4a; margin-top: 10px; }
+        .admin-container button { background-color: #e91e63; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Admin Content Uploader</h2>
+        <p id="current-media-message" style="margin-bottom: 20px; color: #5d4037;">Paste **full Google Drive sharing links** or public URLs below.</p>
+        
+        <label for="newPhoto1">Photo 1 Filename/URL:</label>
+        <input type="text" id="newPhoto1" placeholder="Paste Google Drive Sharing Link">
+        
+        <label for="newPhoto2">Photo 2 Filename/URL:</label>
+        <input type="text" id="newPhoto2" placeholder="Paste Google Drive Sharing Link">
+
+        <label for="newPhoto3">Photo 3 Filename/URL:</label>
+        <input type="text" id="newPhoto3" placeholder="Paste Google Drive Sharing Link">
+
+        <label for="newPhoto4">Photo 4 Filename/URL:</label>
+        <input type="text" id="newPhoto4" placeholder="Paste Google Drive Sharing Link">
+
+        <label for="newPhoto5">Photo 5 Filename/URL:</label>
+        <input type="text" id="newPhoto5" placeholder="Paste Google Drive Sharing Link">
+        
+        <label for="newPhoto6">Photo 6 Filename/URL:</label>
+        <input type="text" id="newPhoto6" placeholder="Paste Google Drive Sharing Link">
+        
+        <label for="newPhoto7">Photo 7 Filename/URL:</label>
+        <input type="text" id="newPhoto7" placeholder="Paste Google Drive Sharing Link">
+
+        <label for="newPhoto8">Photo 8 Filename/URL:</label>
+        <input type="text" id="newPhoto8" placeholder="Paste Google Drive Sharing Link">
+        <button onclick="applyUpdates()">Apply Changes to Greeting Preview</button>
+        <button onclick="logout()" style="background-color: #9c27b0; margin-left: 10px;">Logout</button>
+    </div>
+
+    <script>
+        // Check if user is logged in as admin before showing the page
+        if (localStorage.getItem('userRole') !== 'admin') {
+            alert("Access Denied. Redirecting to login.");
+            window.location.href = 'login.html';
+        }
+
+        // Function to convert Google Drive Sharing Link to Direct Embed Link
+        function getDriveDirectLink(sharingUrl) {
+            if (sharingUrl.includes("drive.google.com/file/d/")) {
+                // Extracts the File ID (the long string between /d/ and /view)
+                const fileId = sharingUrl.match(/file\/d\/([a-zA-Z0-9_-]+)/);
+                if (fileId && fileId[1]) {
+                    // Returns the direct link format. NOTE: File MUST be set to "Anyone with the link"
+                    return `https://drive.google.com/uc?export=view&id=${fileId[1]}`;
+                }
+            }
+            // If it's not a Google Drive link, or if the ID couldn't be found, return the original URL
+            return sharingUrl;
+        }
+
+        function applyUpdates() {
+            // UPDATED: Loop through all 8 photos
+            let photoLinks = {};
+            for (let i = 1; i <= 8; i++) {
+                let link = document.getElementById(`newPhoto${i}`).value.trim();
+                if (link) link = getDriveDirectLink(link);
+                photoLinks[`temp_photo${i}`] = link;
+            }
+
+            // Save the new photo links (now converted) to LocalStorage
+            for (const key in photoLinks) {
+                localStorage.setItem(key, photoLinks[key]);
+            }
+            // Explicitly clear any old video data
+            localStorage.removeItem('temp_video'); 
+
+            alert("Content links saved! Preview the changes by opening the Greeting Preview.");
+        }
+
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+            localStorage.removeItem('userRole');
+            
+            // UPDATED: Remove all 8 photo links from storage on logout
+            for (let i = 1; i <= 8; i++) {
+                localStorage.removeItem(`temp_photo${i}`);
+            }
+            localStorage.removeItem('temp_video'); 
+            
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

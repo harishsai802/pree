@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Minimal specific styles for the login form */
+        .login-container {
+            background: #fffafa;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .login-container h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #d81b60;
+            margin-bottom: 25px;
+            font-size: 2.5em;
+        }
+        .login-container input {
+            width: 90%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ffc0cb;
+            border-radius: 8px;
+        }
+        .login-container button {
+            background-color: #e91e63;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        .login-container button:hover {
+            background-color: #c2185b;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Welcome, My Love!</h2>
+        <input type="text" id="username" placeholder="Enter Name/Username">
+        <input type="password" id="password" placeholder="Enter Code" required>
+        <button onclick="attemptLogin()">Enter the Card</button>
+        <p id="error-message" style="color: #e91e63; margin-top: 15px;"></p>
+    </div>
+
+    <script>
+        // !! IMPORTANT: DEFINE YOUR USERS AND PASSWORDS HERE !!
+        const USERS = {
+            // Admin/Wisher role (for uploading/editing content)
+            "admin": { password: "admin123", role: "admin" }, 
+            
+            // Birthday Girl role (for viewing the final greeting)
+            "love": { password: "love", role: "user" }
+        };
+
+        function attemptLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('error-message');
+
+            if (USERS[username] && USERS[username].password === password) {
+                localStorage.setItem('loggedInUser', username);
+                localStorage.setItem('userRole', USERS[username].role);
+                
+                if (USERS[username].role === 'admin') {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'greeting.html';
+                }
+            } else {
+                errorElement.textContent = "Incorrect Name or Code. Try again!";
+            }
+        }
+    </script>
+</body>
+</html>
