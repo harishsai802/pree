@@ -173,13 +173,22 @@
         
         // 2. **DYNAMIC CONTENT LOADER**
         document.addEventListener('DOMContentLoaded', () => {
-            // UPDATED: Fetch all 8 photo links
-            const photoLinks = [];
-            for (let i = 1; i <= 8; i++) {
-                photoLinks.push(localStorage.getItem(`temp_photo${i}`));
-            }
+            
+            // --- MODIFIED SECTION: HARDCODED IMAGE LINKS (Bypassing admin/localStorage) ---
+            // These links will now be used directly to load the photos.
+            const photoLinks = [
+                "https://i.ibb.co/N2y80gB1/IMG-20240428-173432.jpg", // Photo Slot 1
+                "https://i.ibb.co/p6GqdkJR/IMG-20240621-153712.jpg", // Photo Slot 2
+                "https://i.ibb.co/S9qwxKF/IMG-20240819-170544.jpg", // Photo Slot 3
+                "https://i.ibb.co/pvXXtq48/IMG-20250219-145723.jpg", // Photo Slot 4
+                "https://i.ibb.co/gbLWh6ZY/IMG-20250403-111707.jpg", // Photo Slot 5
+                "https://i.ibb.co/mV1C07jT/IMG-20250705-150436.jpg", // Photo Slot 6
+                "https://i.ibb.co/mVZVPHB2/IMG-20250812-WA0310.jpg", // Photo Slot 7
+                "https://i.ibb.co/r2tbMGPB/IMG-20250404-134709.jpg"  // Photo Slot 8
+            ];
+            // --- END MODIFIED SECTION ---
 
-            // UPDATED: Apply photo links to all 8 slots
+            // Apply photo links to all 8 slots
             photoLinks.forEach((link, index) => {
                 if (link) {
                     const selector = `.photo-slot-${index + 1}`;
@@ -193,7 +202,7 @@
             // Initialize collapsible sections
             const content = document.getElementById('secretContent');
             const reasons = document.getElementById('reasonsContent');
-            const moments = document.getElementById('momentsContent'); // NEW: Initialize moments section
+            const moments = document.getElementById('momentsContent'); 
 
             if (content) {
                 // Ensure the secret message starts hidden
