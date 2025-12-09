@@ -8,7 +8,9 @@
     <style>
         /* Optional: Add a transition for the secret content reveal */
         .secret-content {
+            /* FIX: This line is required to hide the content initially. */
             max-height: 0; 
+            
             transition: max-height 0.8s ease-in-out;
             overflow: hidden;
             text-align: left; /* Align text inside the revealed box */
@@ -34,12 +36,14 @@
         </div>
         
         <div class="photo-gallery">
-                        <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+1" alt="A cherished memory 1" class="animated-media photo-slot-1">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+1" alt="A cherished memory 1" class="animated-media photo-slot-1">
             <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+2" alt="A cherished memory 2" class="animated-media photo-slot-2">
             <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+3" alt="A cherished memory 3" class="animated-media photo-slot-3">
             <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+4" alt="A cherished memory 4" class="animated-media photo-slot-4">
             <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+5" alt="A cherished memory 5" class="animated-media photo-slot-5">
             <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+6" alt="A cherished memory 6" class="animated-media photo-slot-6">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+7" alt="A cherished memory 7" class="animated-media photo-slot-7">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+8" alt="A cherished memory 8" class="animated-media photo-slot-8">
         </div>
 
         <div class="secret-tab" id="mainSecretTab">
@@ -224,19 +228,21 @@
         // 2. **DYNAMIC CONTENT LOADER**
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- MODIFIED SECTION: Only 6 Unique Images ---
-            // Using the absolute path /preet/ for GitHub Pages stability
+            // --- MODIFIED SECTION: NEW LOCAL IMAGE LINKS ---
+            // These links point to the files uploaded to the same repository directory.
             const photoLinks = [
-                "/preet/IMG-20250812-WA0310.jpg",   // Photo Slot 1
-                "/preet/IMG_20240621_153712.jpg",   // Photo Slot 2
-                "/preet/IMG_20240819_170526.jpg",   // Photo Slot 3
-                "/preet/IMG-20250813-WA0152.jpg",   // Photo Slot 4
-                "/preet/IMG_20250403_111707.jpg",   // Photo Slot 5
-                "/preet/IMG_20250705_150436.jpg"    // Photo Slot 6
+                "IMG-20250812-WA0310.jpg",   // Photo Slot 1
+                "IMG_20240621_153712.jpg",   // Photo Slot 2
+                "IMG_20240819_170526.jpg",   // Photo Slot 3
+                "IMG-20250813-WA0152.jpg",   // Photo Slot 4
+                "IMG_20250403_111707.jpg",   // Photo Slot 5
+                "IMG_20250705_150436.jpg",   // Photo Slot 6
+                "IMG-20250812-WA0310.jpg",   // Photo Slot 7 (Reused)
+                "IMG_20240819_170526.jpg"    // Photo Slot 8 (Reused)
             ];
             // --- END MODIFIED SECTION ---
 
-            // Apply photo links to all 6 slots
+            // Apply photo links to all 8 slots
             photoLinks.forEach((link, index) => {
                 if (link) {
                     const selector = `.photo-slot-${index + 1}`;
