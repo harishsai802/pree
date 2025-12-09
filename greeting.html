@@ -1,188 +1,410 @@
-<script>
-    // 1. **AUTHENTICATION CHECK** (Redirects if not logged in)
-    if (localStorage.getItem('userRole') !== 'user') {
-        alert("Please log in to view the card!");
-        window.location.href = 'login.html';
-    }
-    
-    // 2. **DYNAMIC CONTENT LOADER**
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        // --- MODIFIED SECTION: NEW LOCAL IMAGE LINKS ---
-        // These links will now point to the files uploaded to the same repository directory.
-        const photoLinks = [
-            "IMG-20250812-WA0310.jpg",   // Photo Slot 1 (Used IMG-20250812-WA0310.jpg)
-            "IMG_20240621_153712.jpg",   // Photo Slot 2
-            "IMG_20240819_170526.jpg",   // Photo Slot 3
-            "IMG-20250813-WA0152.jpg",   // Photo Slot 4 (Used IMG-20250813-WA0152.jpg)
-            "IMG_20250403_111707.jpg",   // Photo Slot 5
-            "IMG_20250705_150436.jpg",   // Photo Slot 6
-            "IMG-20250812-WA0310.jpg",   // Photo Slot 7 (Reused a file for completeness)
-            "IMG_20240819_170526.jpg"    // Photo Slot 8 (Reused a file for completeness)
-        ];
-        // --- END MODIFIED SECTION ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love!</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Optional: Add a transition for the secret content reveal */
+        .secret-content {
+            /* FIX: This line is required to hide the content initially. */
+            max-height: 0; 
+            
+            transition: max-height 0.8s ease-in-out;
+            overflow: hidden;
+            text-align: left; /* Align text inside the revealed box */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="heart-container">
+        </div>
+    
+    <div class="card">
+        
+        <div class="confetti">🎉</div>
+        <div class="confetti-2">🥳</div> <div class="balloon">🎈</div>
 
-        // Apply photo links to all 8 slots
-        photoLinks.forEach((link, index) => {
-            if (link) {
-                const selector = `.photo-slot-${index + 1}`;
-                const imgElement = document.querySelector(selector);
-                if (imgElement) {
-                    imgElement.src = link;
-                }
-            }
-        });
-        
-        // Initialize collapsible sections
-        const content = document.getElementById('secretContent');
-        const reasons = document.getElementById('reasonsContent');
-        const moments = document.getElementById('momentsContent'); 
+        <h1 class="animated-text">Happy Happiest Birthday, Preetuuuuuu</h1>
+        <p class="message">Wishing you a day filled with all the joy, love, and happiness you bring to my life.</p>
+        
+        <div class="time-alive-container">
+            <p class="timer-label">Bangaara you have brightened the world from...</p>
+            <div id="time-alive-timer">Loading...</div>
+        </div>
+        
+        <div class="photo-gallery">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+1" alt="A cherished memory 1" class="animated-media photo-slot-1">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+2" alt="A cherished memory 2" class="animated-media photo-slot-2">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+3" alt="A cherished memory 3" class="animated-media photo-slot-3">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+4" alt="A cherished memory 4" class="animated-media photo-slot-4">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+5" alt="A cherished memory 5" class="animated-media photo-slot-5">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+6" alt="A cherished memory 6" class="animated-media photo-slot-6">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+7" alt="A cherished memory 7" class="animated-media photo-slot-7">
+            <img src="https://via.placeholder.com/200x180/ffc0cb/ffffff?text=Photo+8" alt="A cherished memory 8" class="animated-media photo-slot-8">
+        </div>
 
-        if (content) {
-            // Ensure the secret message starts hidden
-            content.style.maxHeight = '0px'; 
-            content.style.overflow = 'hidden'; 
-            document.getElementById('passwordArea').style.display = 'block';
-        }
+        <div class="secret-tab" id="mainSecretTab">
+            <p class="tab-title">✨ Unlock the Secret Message! ✨</p>
+            
+            <div id="passwordArea">
+                <p class="hint">**Hint:** The Password will be collaboration of u and me think wisely</p>
+                <input type="password" id="secretPassword" placeholder="Enter code">
+                <button onclick="checkSecretPassword()">Unlock</button>
+            </div>
+            
+            <div id="secretContent" class="secret-content">
+                <div style="padding: 20px;">
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        My Dearest Pretuuuuu,
+                    </p>
+                    <p style="font-style: italic; margin-top: 15px; color: #000000;">
+                        If our life were a book, this day would be a glittering bookmark. You're not just my chapter; you are the Beautiful, vibrant cover and every meaningful line written within. Every laugh shared, every quiet moment, every dream we've whispered—they all form the constellation of my happiness, and you are its brightest star.
+                    </p>
+                    <p style="margin-top: 20px; font-weight: 600; color: #d81b60;">
+                        Thank you for being my safe harbor and my greatest adventure. Today, and every day, my wish is simple: to see that incredible smile of yours shine brighter than ever. I am eternally grateful to have you.
+                        </p>
+                    <p style="margin-top: 20px; font-weight: 600; color: #d81b60;">
+                        My dearest Preethuuuu (Bangaraaa) i wanna tell u one thing that i really loves u lot i think ningu gottilla ansute nan ninna est love madtiddini anta becuse nan love na sky ge compare maddidre may be adu kuda kammi agbahudu my love towards u is eternal Future alli en adru nin dura adru nang madve adru u will always remained as a uncompleted melody of my life thanks for ur love and trust bangara I wanna end up ur name as Misses Sai Harish or Preethi M i know nin wait madtiddiya e mathu nan bayi inda kelbeku anta i really really LOVE YOU LOT Bangara 😘😘😘
+                    </p>
+                    <p style="text-align: right; margin-top: 25px; font-family: 'Dancing Script', cursive; font-size: 1.5em; color: #e91e63;">
+                        Forever Yours, <br>- Sai Harish M
+                    </p>
+                    <div class="heart-icon" style="text-align: center; font-size: 2em; margin-top: 10px;">❤️</div>
+                </div>
+            </div>
+        </div>
 
-        if (reasons) {
-            // Ensure the 100 reasons start hidden
-            reasons.style.maxHeight = '0px'; 
-            reasons.style.overflow = 'hidden';
-        }
-        
-        // NEW: Ensure moments section starts hidden
-        if (moments) {
-            moments.style.maxHeight = '0px';
-            moments.style.overflow = 'hidden';
-        }
-        
-        // NEW: Call the Time Alive Counter on load
-        startTimeAliveCounter(); // Start the Time Alive Counter
+        <div class="secret-tab" id="momentsTab" style="margin-top: 20px;">
+            <p class="tab-title" onclick="toggleMoments()" style="cursor: pointer;">📸 Our 10 Cherished Moments (Click to Reveal) ⏳</p>
+            
+            <div id="momentsContent" class="secret-content">
+                <div style="padding: 20px;">
+                    <div style="text-align: left; margin: 15px 0; padding: 10px; border-top: 1px dashed #ffc0cb;">
+                        <ol style="padding-left: 20px; list-style-type: decimal;">
+                            <li>The first time i saw u at lab u r too beautiful with those teeth braces.</li>
+                            <li>That Unstoppable late night chats where we have shared lot of things each other.</li>
+                            <li>The long drive we took when it was raining heavily from hema home to ur home.</li>
+                            <li>The dialogues we used to fun flirt in the college.</li>
+                            <li>The movie we watched i still remember u used to fall asleep on my shoulder.</li>
+                            <li>Our trips to different places.</li>
+                            <li>That time we had a serious talk and grew closer.</li>
+                            <li>The surprise gift you gave me for my birthday.</li>
+                            <li>When we first realized we were in love.</li>
+                            <li>The Day of February 1st of 2025.</li>
+                        </ol>
+                        <p style="font-style: italic; font-weight: bold; color: #d81b60; margin-top: 20px; text-align: center;">Cherishing every memory with you, my love!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="secret-tab" id="reasonsTab" style="margin-top: 20px;">
+            <p class="tab-title" onclick="toggleReasons()" style="cursor: pointer;">💖 100 Reasons I Adore You (Click to Reveal) 💖</p>
+            
+            <div id="reasonsContent" class="secret-content">
+                <div style="padding: 20px;">
+                    <div style="text-align: left; margin: 15px 0; padding: 10px; border-top: 1px dashed #ffc0cb;">
+                        <ol style="padding-left: 20px;">
 
-        // NEW: Heart Rain Generator
-        const heartContainer = document.querySelector('.heart-container');
-        const heartEmojis = ['💖', '💕', '✨', '💜', '😍']; // Emojis to use
-        const count = 50; // Number of floating hearts
+  <li>Your smile brightens my day.</li>
+  <li>You always know how to make me laugh.</li>
+  <li>Your 2/2 kindness inspires me.</li>
+  <li>You listen to me with genuine interest.</li>
+  <li>You support my dreams.</li>
+  <li>You have the most beautiful eyes.</li>
+  <li>You make me feel safe.</li>
+  <li>You are the best.</li>
+  <li>You are incredibly thoughtful.</li>
+  <li>You bring out the best in me.</li>
+  <li>You're my best friend.</li>
+  <li>You accept me as I am.</li>
+  <li>Your love for adventure.</li>
+  <li>The way you care for others.</li>
+  <li>Your creativity amazes me.</li>
+  <li>You make even the ordinary moments special.</li>
+  <li>Your sense of humor.</li>
+  <li>The way you look at me.</li>
+  <li>You are so patient.</li>
+  <li>You never give up on us.</li>
+  <li>You are my biggest cheerleader.</li>
+  <li>Your intelligence</li>
+  <li>You're a great cook.</li>
+  <li>You're my confidant.</li>
+  <li>You surprise me in the best ways.</li>
+  <li>You're always up for trying new things.</li>
+  <li>Your optimism is contagious.</li>
+  <li>You're incredibly hardworking.</li>
+  <li>Your loyalty.</li>
+  <li>You make me feel appreciated.</li>
+  <li>Your laugh is infectious.</li>
+  <li>You make me a better person.</li>
+  <li>Your sense of adventure.</li>
+  <li>You're always there when I need you.</li>
+  <li>Your passion for life.</li>
+  <li>The way you hold my hand.</li>
+  <li>You're an amazing listener.</li>
+  <li>Your generosity.</li>
+  <li>You respect me.</li>
+  <li>You're honest with me.</li>
+  <li>You're my rock.</li>
+  <li>You make me feel cherished.</li>
+  <li>You are my headche</li>
+  <li>You're my favorite person</li>
+  <li>Your resilience</li>
+  <li>You're my partner in crime.</li>
+  <li>Your strength.</li>
+  <li>You make me feel alive</li>
+  <li>Your dedication to our relationship.</li>
+  <li>You're always honest with me.</li>
+  <li>Your warm heart</li>
+  <li>You make everyday brighter.</li>
+  <li>Your sense of style.</li>
+  <li>You're my Darling</li>
+  <li>Your sense of adventure.</li>
+  <li>You always have the best ideas.</li>
+  <li>You're my inspiration.</li>
+  <li>Your selflessness.</li>
+  <li>You understand me.</li>
+  <li>You make me feel special.</li>
+  <li>Your positive attitude.</li>
+  <li>You're so caring.</li>
+  <li>You're my comfort.</li>
+  <li>Your smile is contagious.</li>
+  <li>You're my partner in everything.</li>
+  <li>Your laugh makes me happy.</li>
+  <li>You're my safe haven.</li>
+  <li>Your spontaneity.</li>
+  <li>You make me feel loved.</li>
+  <li>You're incredibly thoughtful.</li>
+  <li>You always make time for me.</li>
+  <li>You're my favorite person to talk to.</li>
+  <li>You make me feel important.</li>
+  <li>Your loyalty means the world to me.</li>
+  <li>You're my best friend and lover.</li>
+  <li>You're my constant support.</li>
+  <li>Your warmth.</li>
+  <li>You make me feel understood.</li>
+  <li>You're my perfect match.</li>
+  <li>Your patience with me.</li>
+  <li>You're my biggest fan.</li>
+  <li>You make me laugh like no one else.</li>
+  <li>Your loving nature.</li>
+  <li>You make life fun.</li>
+  <li>You're always there for me.</li>
+  <li>Your thoughtfulness.</li>
+  <li>You make my heart skip a beat.</li>
+  <li>You're my everything.</li>
+  <li>Your encouragement.</li>
+  <li>You're my greatest adventure</li>
+  <li>You make me feel at home</li>
+  <li>Your tenderness.</li>
+  <li>You make me smile.</li>
+  <li>Your dedication to us.</li>
+  <li>You're my forever.</li>
+  <li>You make life worth living.</li>
+  <li>You're my reason to smile.</li>
+  <li>You make me feel complete.</li>
+  <li>Your love is my strength</li>
+  <li>You're my one and only Sweet nayiii🐕🐕</li>
+                        </ol>
+                    </div>
+                    <p style="font-style: italic; font-weight: bold; color: #d81b60; margin-top: 20px; text-align: center;">I Wish U Many More Happy Returns of The Day My Dear Darling 😍😍🎉🎉🎊🎊</p>
+                </div>
+            </div>
+        </div>
+        <p class="signature">- Developed with Love by Sai Harish M</p>
+    </div>
 
-        for (let i = 0; i < count; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('floating-heart');
-            
-            // Randomly select an emoji
-            const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            heart.textContent = emoji;
+    
+    <script>
+        // 1. **AUTHENTICATION CHECK** (Redirects if not logged in)
+        if (localStorage.getItem('userRole') !== 'user') {
+            alert("Please log in to view the card!");
+            window.location.href = 'login.html';
+        }
+        
+        // 2. **DYNAMIC CONTENT LOADER**
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- MODIFIED SECTION: NEW LOCAL IMAGE LINKS ---
+            // These links point to the files uploaded to the same repository directory.
+            const photoLinks = [
+                "IMG-20250812-WA0310.jpg",   // Photo Slot 1
+                "IMG_20240621_153712.jpg",   // Photo Slot 2
+                "IMG_20240819_170526.jpg",   // Photo Slot 3
+                "IMG-20250813-WA0152.jpg",   // Photo Slot 4
+                "IMG_20250403_111707.jpg",   // Photo Slot 5
+                "IMG_20250705_150436.jpg",   // Photo Slot 6
+                "IMG-20250812-WA0310.jpg",   // Photo Slot 7 (Reused)
+                "IMG_20240819_170526.jpg"    // Photo Slot 8 (Reused)
+            ];
+            // --- END MODIFIED SECTION ---
 
-            // Random positioning and timing for variation
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.animationDuration = `${Math.random() * 10 + 5}s`; // 5 to 15 seconds
-            heart.style.animationDelay = `${Math.random() * 10}s`;
-            
-            // Random size for variety
-            heart.style.fontSize = `${Math.random() * 1.5 + 1}em`; 
+            // Apply photo links to all 8 slots
+            photoLinks.forEach((link, index) => {
+                if (link) {
+                    const selector = `.photo-slot-${index + 1}`;
+                    const imgElement = document.querySelector(selector);
+                    if (imgElement) {
+                        imgElement.src = link;
+                    }
+                }
+            });
+            
+            // Initialize collapsible sections
+            const content = document.getElementById('secretContent');
+            const reasons = document.getElementById('reasonsContent');
+            const moments = document.getElementById('momentsContent'); 
 
-            heartContainer.appendChild(heart);
-        }
-    });
+            if (content) {
+                // Ensure the secret message starts hidden
+                content.style.maxHeight = '0px'; 
+                content.style.overflow = 'hidden'; 
+                document.getElementById('passwordArea').style.display = 'block';
+            }
+
+            if (reasons) {
+                // Ensure the 100 reasons start hidden
+                reasons.style.maxHeight = '0px'; 
+                reasons.style.overflow = 'hidden';
+            }
+            
+            // NEW: Ensure moments section starts hidden
+            if (moments) {
+                moments.style.maxHeight = '0px';
+                moments.style.overflow = 'hidden';
+            }
+            
+            // NEW: Call the Time Alive Counter on load
+            startTimeAliveCounter(); // Start the Time Alive Counter
+
+            // NEW: Heart Rain Generator
+            const heartContainer = document.querySelector('.heart-container');
+            const heartEmojis = ['💖', '💕', '✨', '💜', '😍']; // Emojis to use
+            const count = 50; // Number of floating hearts
+
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                
+                // Randomly select an emoji
+                const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.textContent = emoji;
+
+                // Random positioning and timing for variation
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`; // 5 to 15 seconds
+                heart.style.animationDelay = `${Math.random() * 10}s`;
+                
+                // Random size for variety
+                heart.style.fontSize = `${Math.random() * 1.5 + 1}em`; 
+
+                heartContainer.appendChild(heart);
+            }
+        });
 
 
-    // 5. **TIME ALIVE COUNTER LOGIC**
-    // !! IMPORTANT: SET THE START DATE/TIME HERE (e.g., BIRTH DATE) !!
-    // Format: 'Month Day, Year 00:00:00' (e.g., 'November 3, 2000 00:00:00')
-    const START_DATE = new Date('November 3, 2000 00:00:00').getTime(); 
-    
-    function startTimeAliveCounter() {
-        const timerElement = document.getElementById('time-alive-timer');
-        
-        if (!timerElement) return;
+        // 5. **TIME ALIVE COUNTER LOGIC**
+        // !! IMPORTANT: SET THE START DATE/TIME HERE (e.g., BIRTH DATE) !!
+        // Format: 'Month Day, Year 00:00:00' (e.g., 'November 3, 2000 00:00:00')
+        const START_DATE = new Date('November 3, 2000 00:00:00').getTime(); 
+        
+        function startTimeAliveCounter() {
+            const timerElement = document.getElementById('time-alive-timer');
+            
+            if (!timerElement) return;
 
-        const x = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = now - START_DATE;
-            
-            if (distance < 0) {
-                timerElement.innerHTML = "Counting down to the big day!";
-                return;
-            }
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = now - START_DATE;
+                
+                if (distance < 0) {
+                    timerElement.innerHTML = "Counting down to the big day!";
+                    return;
+                }
 
-            // Calculations for days, hours, minutes and seconds
-            const totalSeconds = Math.floor(distance / 1000);
-            
-            const secondsInDay = 60 * 60 * 24;
-            const secondsInHour = 60 * 60;
-            const secondsInMinute = 60;
-            
-            // Days (This must be the whole number of days)
-            const days = Math.floor(totalSeconds / secondsInDay);
-            let remainingSeconds = totalSeconds % secondsInDay;
-            
-            // Hours
-            const hours = Math.floor(remainingSeconds / secondsInHour);
-            remainingSeconds = remainingSeconds % secondsInHour;
-            
-            // Minutes
-            const minutes = Math.floor(remainingSeconds / secondsInMinute);
-            
-            // Seconds
-            const seconds = remainingSeconds % secondsInMinute;
-            
-            // Display the result with the new stacked structure
-            timerElement.innerHTML = 
-                `<div class="timer-unit"><span class="unit">${days.toLocaleString('en-US')}</span><span class="label">Days</span></div>` +
-                `<div class="timer-unit"><span class="unit">${String(hours).padStart(2, '0')}</span><span class="label">Hrs</span></div>` +
-                `<div class="timer-unit"><span class="unit">${String(minutes).padStart(2, '0')}</span><span class="label">Mins</span></div>` +
-                `<div class="timer-unit"><span class="unit">${String(seconds).padStart(2, '0')}</span><span class="label">Secs</span></div>`;
-        }, 1000);
-    }
+                // Calculations for days, hours, minutes and seconds
+                const totalSeconds = Math.floor(distance / 1000);
+                
+                const secondsInDay = 60 * 60 * 24;
+                const secondsInHour = 60 * 60;
+                const secondsInMinute = 60;
+                
+                // Days (This must be the whole number of days)
+                const days = Math.floor(totalSeconds / secondsInDay);
+                let remainingSeconds = totalSeconds % secondsInDay;
+                
+                // Hours
+                const hours = Math.floor(remainingSeconds / secondsInHour);
+                remainingSeconds = remainingSeconds % secondsInHour;
+                
+                // Minutes
+                const minutes = Math.floor(remainingSeconds / secondsInMinute);
+                
+                // Seconds
+                const seconds = remainingSeconds % secondsInMinute;
+                
+                // Display the result with the new stacked structure
+                timerElement.innerHTML = 
+                    `<div class="timer-unit"><span class="unit">${days.toLocaleString('en-US')}</span><span class="label">Days</span></div>` +
+                    `<div class="timer-unit"><span class="unit">${String(hours).padStart(2, '0')}</span><span class="label">Hrs</span></div>` +
+                    `<div class="timer-unit"><span class="unit">${String(minutes).padStart(2, '0')}</span><span class="label">Mins</span></div>` +
+                    `<div class="timer-unit"><span class="unit">${String(seconds).padStart(2, '0')}</span><span class="label">Secs</span></div>`;
+            }, 1000);
+        }
 
-    // 3. **SECRET MESSAGE LOGIC**
-    const CORRECT_PASSWORD = "1903"; // !! SET YOUR PASSWORD HERE !!
+        // 3. **SECRET MESSAGE LOGIC**
+        const CORRECT_PASSWORD = "1903"; // !! SET YOUR PASSWORD HERE !!
 
-    function checkSecretPassword() {
-        const enteredPassword = document.getElementById('secretPassword').value;
-        const content = document.getElementById('secretContent');
-        const passwordArea = document.getElementById('passwordArea');
+        function checkSecretPassword() {
+            const enteredPassword = document.getElementById('secretPassword').value;
+            const content = document.getElementById('secretContent');
+            const passwordArea = document.getElementById('passwordArea');
 
-        if (enteredPassword === CORRECT_PASSWORD) {
-            passwordArea.style.display = 'none';
-            // Use scrollHeight to correctly calculate the height for the content inside
-            content.style.maxHeight = content.scrollHeight + "px"; 
-            document.querySelector('#mainSecretTab .tab-title').textContent = "💌 Secret Message Revealed! 🥳";
-        } else {
-            alert("Incorrect code. Try the hint!");
-            document.getElementById('secretPassword').value = '';
-        }
-    }
-    
-    // 4. **MOMENTS TOGGLE LOGIC** (NEW FUNCTION)
-    function toggleMoments() {
-        const moments = document.getElementById('momentsContent');
-        const title = document.querySelector('#momentsTab .tab-title');
-        
-        if (moments.style.maxHeight === '0px' || moments.style.maxHeight === '') {
-            // OPEN: Reveal the moments list
-            moments.style.maxHeight = moments.scrollHeight + "px";
-            title.textContent = "🔽 Our 10 Cherished Moments (Click to Hide) 💖";
-        } else {
-            // CLOSE: Hide the moments list
-            moments.style.maxHeight = '0px';
-            title.textContent = "📸 Our 10 Cherished Moments (Click to Reveal) ⏳";
-        }
-    }
+            if (enteredPassword === CORRECT_PASSWORD) {
+                passwordArea.style.display = 'none';
+                // Use scrollHeight to correctly calculate the height for the content inside
+                content.style.maxHeight = content.scrollHeight + "px"; 
+                document.querySelector('#mainSecretTab .tab-title').textContent = "💌 Secret Message Revealed! 🥳";
+            } else {
+                alert("Incorrect code. Try the hint!");
+                document.getElementById('secretPassword').value = '';
+            }
+        }
+        
+        // 4. **MOMENTS TOGGLE LOGIC** (NEW FUNCTION)
+        function toggleMoments() {
+            const moments = document.getElementById('momentsContent');
+            const title = document.querySelector('#momentsTab .tab-title');
+            
+            if (moments.style.maxHeight === '0px' || moments.style.maxHeight === '') {
+                // OPEN: Reveal the moments list
+                moments.style.maxHeight = moments.scrollHeight + "px";
+                title.textContent = "🔽 Our 10 Cherished Moments (Click to Hide) 💖";
+            } else {
+                // CLOSE: Hide the moments list
+                moments.style.maxHeight = '0px';
+                title.textContent = "📸 Our 10 Cherished Moments (Click to Reveal) ⏳";
+            }
+        }
 
-    // 5. **REASONS TOGGLE LOGIC**
-    function toggleReasons() {
-        const reasons = document.getElementById('reasonsContent');
-        const title = document.querySelector('#reasonsTab .tab-title');
-        
-        if (reasons.style.maxHeight === '0px' || reasons.style.maxHeight === '') {
-            // OPEN: Reveal the reasons list
-            reasons.style.maxHeight = reasons.scrollHeight + "px";
-            title.textContent = "🔽 100 Reasons I Adore You (Click to Hide) 💖";
-        } else {
-            // CLOSE: Hide the reasons list
-            reasons.style.maxHeight = '0px';
-            title.textContent = "💖 100 Reasons I Adore You (Click to Reveal) 💖";
-        }
-    }
-</script>
+        // 5. **REASONS TOGGLE LOGIC**
+        function toggleReasons() {
+            const reasons = document.getElementById('reasonsContent');
+            const title = document.querySelector('#reasonsTab .tab-title');
+            
+            if (reasons.style.maxHeight === '0px' || reasons.style.maxHeight === '') {
+                // OPEN: Reveal the reasons list
+                reasons.style.maxHeight = reasons.scrollHeight + "px";
+                title.textContent = "🔽 100 Reasons I Adore You (Click to Hide) 💖";
+            } else {
+                // CLOSE: Hide the reasons list
+                reasons.style.maxHeight = '0px';
+                title.textContent = "💖 100 Reasons I Adore You (Click to Reveal) 💖";
+            }
+        }
+    </script>
+</body>
+</html>
