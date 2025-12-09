@@ -228,19 +228,32 @@
         // 2. **DYNAMIC CONTENT LOADER**
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- MODIFIED SECTION: NEW LOCAL IMAGE LINKS ---
-            // These links point to the files uploaded to the same repository directory.
-            const photoLinks = [
-                "IMG-20250812-WA0310.jpg",   // Photo Slot 1
-                "IMG_20240621_153712.jpg",   // Photo Slot 2
-                "IMG_20240819_170526.jpg",   // Photo Slot 3
-                "IMG-20250813-WA0152.jpg",   // Photo Slot 4
-                "IMG_20250403_111707.jpg",   // Photo Slot 5
-                "IMG_20250705_150436.jpg",   // Photo Slot 6
-                "IMG-20250812-WA0310.jpg",   // Photo Slot 7 (Reused)
-                "IMG_20240819_170526.jpg"    // Photo Slot 8 (Reused)
+            // --- DYNAMIC/FALLBACK IMAGE LINKS ---
+            // 1. Check LocalStorage for links saved by the Admin page (temp_photo1, etc.)
+            const adminLinks = [];
+            for (let i = 1; i <= 8; i++) {
+                const link = localStorage.getItem(`temp_photo${i}`);
+                adminLinks.push(link);
+            }
+
+            // 2. Fallback to Local Files/GitHub Relative Paths 
+            //    (Using the filenames listed in your uploaded files)
+            const localFallbackLinks = [
+                "IMG-20250812-WA0310.jpg",    // Photo Slot 1
+                "IMG-20240621_153712.jpg",    // Photo Slot 2
+                "IMG-20240819_170526.jpg",    // Photo Slot 3
+                "IMG-20250813-WA0152.jpg",    // Photo Slot 4
+                "IMG-20240903_111707.jpg",    // Photo Slot 5
+                "IMG-20250705_150436.jpg",    // Photo Slot 6
+                "Snapchat-598057377.jpg",     // Photo Slot 7 
+                "IMG-20250812-WA0310.jpg"     // Photo Slot 8 (Reusing a file to ensure 8 slots are filled)
             ];
-            // --- END MODIFIED SECTION ---
+
+            const photoLinks = adminLinks.map((adminLink, index) => {
+                // If an admin link exists and is non-null/non-empty, use it. Otherwise, use the local fallback.
+                return adminLink || localFallbackLinks[index];
+            });
+            // --- END DYNAMIC/FALLBACK SECTION ---
 
             // Apply photo links to all 8 slots
             photoLinks.forEach((link, index) => {
