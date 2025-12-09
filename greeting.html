@@ -285,18 +285,16 @@
                 reasons.style.overflow = 'hidden';
             }
             
-            // NEW: Ensure moments section starts hidden
             if (moments) {
                 moments.style.maxHeight = '0px';
                 moments.style.overflow = 'hidden';
             }
             
-            // NEW: Call the Time Alive Counter on load
             startTimeAliveCounter(); 
 
             // NEW: Heart Rain Generator
             const heartContainer = document.querySelector('.heart-container');
-            const heartEmojis = ['💖', '💕', '✨', '💜', '😍']; 
+            const heartEmojis = ['💖', '💕', '✨', '💜', '😍'];
             const count = 50; 
 
             for (let i = 0; i < count; i++) {
@@ -307,7 +305,7 @@
                 heart.textContent = emoji;
 
                 heart.style.left = `${Math.random() * 100}%`;
-                heart.style.animationDuration = `${Math.random() * 10 + 5}s`; 
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
                 heart.style.animationDelay = `${Math.random() * 10}s`;
                 heart.style.fontSize = `${Math.random() * 1.5 + 1}em`; 
 
@@ -375,7 +373,6 @@
 
             if (enteredPassword === CORRECT_PASSWORD) {
                 passwordArea.style.display = 'none';
-                // Use scrollHeight to correctly calculate the height for the content inside
                 content.style.maxHeight = content.scrollHeight + "px"; 
                 document.querySelector('#mainSecretTab .tab-title').textContent = "💌 Secret Message Revealed! 🥳";
             } else {
@@ -390,11 +387,9 @@
             const title = document.querySelector('#momentsTab .tab-title');
             
             if (moments.style.maxHeight === '0px' || moments.style.maxHeight === '') {
-                // OPEN: Reveal the moments list
                 moments.style.maxHeight = moments.scrollHeight + "px";
                 title.textContent = "🔽 Our 10 Cherished Moments (Click to Hide) 💖";
             } else {
-                // CLOSE: Hide the moments list
                 moments.style.maxHeight = '0px';
                 title.textContent = "📸 Our 10 Cherished Moments (Click to Reveal) ⏳";
             }
@@ -406,11 +401,9 @@
             const title = document.querySelector('#reasonsTab .tab-title');
             
             if (reasons.style.maxHeight === '0px' || reasons.style.maxHeight === '') {
-                // OPEN: Reveal the reasons list
                 reasons.style.maxHeight = reasons.scrollHeight + "px";
                 title.textContent = "🔽 100 Reasons I Adore You (Click to Hide) 💖";
             } else {
-                // CLOSE: Hide the reasons list
                 reasons.style.maxHeight = '0px';
                 title.textContent = "💖 100 Reasons I Adore You (Click to Reveal) 💖";
             }
@@ -418,3 +411,4 @@
     </script>
 </body>
 </html>
+
