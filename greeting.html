@@ -47,7 +47,7 @@
         </div>
 
         <div class="secret-tab" id="mainSecretTab">
-            <p class="tab-title">✨ Unlock the Secret Message! ✨</p>
+            <p class="tab-title" style="cursor: pointer;">✨ Unlock the Secret Message! ✨</p>
             
             <div id="passwordArea">
                 <p class="hint">**Hint:** The Password will be collaboration of u and me think wisely</p>
@@ -232,12 +232,13 @@
             // 1. Check LocalStorage for links saved by the Admin page (temp_photo1, etc.)
             const adminLinks = [];
             for (let i = 1; i <= 8; i++) {
-                const link = localStorage.getItem(`temp_photo${i}`);
+                // localStorage.getItem returns null if key is not found, which is falsy
+                const link = localStorage.getItem(`temp_photo${i}`); 
                 adminLinks.push(link);
             }
 
             // 2. Fallback to Local Files/GitHub Relative Paths 
-            //    (Using the filenames listed in your uploaded files)
+            //    (Using the exact filenames listed in your uploaded files)
             const localFallbackLinks = [
                 "IMG-20250812-WA0310.jpg",     // Photo Slot 1
                 "IMG-20250813-WA0152.jpg",     // Photo Slot 2
@@ -245,8 +246,8 @@
                 "IMG-20240819_170526.jpg",     // Photo Slot 4
                 "IMG-20240903_111707.jpg",     // Photo Slot 5
                 "IMG-20250705_150436.jpg",     // Photo Slot 6
-                "Snapchat-1598057377.jpg",     // Photo Slot 7
-                "IMG-20250812-WA0310.jpg"     // Photo Slot 8 (Reusing a file)
+                "Snapchat-1598057377.jpg",     // Photo Slot 7 
+                "IMG-20240808_172328.jpg"     // Photo Slot 8
             ];
 
             const photoLinks = adminLinks.map((adminLink, index) => {
@@ -291,27 +292,23 @@
             }
             
             // NEW: Call the Time Alive Counter on load
-            startTimeAliveCounter(); // Start the Time Alive Counter
+            startTimeAliveCounter(); 
 
             // NEW: Heart Rain Generator
             const heartContainer = document.querySelector('.heart-container');
-            const heartEmojis = ['💖', '💕', '✨', '💜', '😍']; // Emojis to use
-            const count = 50; // Number of floating hearts
+            const heartEmojis = ['💖', '💕', '✨', '💜', '😍']; 
+            const count = 50; 
 
             for (let i = 0; i < count; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('floating-heart');
                 
-                // Randomly select an emoji
                 const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
                 heart.textContent = emoji;
 
-                // Random positioning and timing for variation
                 heart.style.left = `${Math.random() * 100}%`;
-                heart.style.animationDuration = `${Math.random() * 10 + 5}s`; // 5 to 15 seconds
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`; 
                 heart.style.animationDelay = `${Math.random() * 10}s`;
-                
-                // Random size for variety
                 heart.style.fontSize = `${Math.random() * 1.5 + 1}em`; 
 
                 heartContainer.appendChild(heart);
