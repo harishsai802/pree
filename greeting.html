@@ -1,217 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, My Love!</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love!</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Optional: Add a transition for the secret content reveal */
+        .secret-content {
+            /* FIX: This line is required to hide the content initially. */
+            max-height: 0; 
+            
+            transition: max-height 0.8s ease-in-out;
+            overflow: hidden;
+            text-align: left; /* Align text inside the revealed box */
+        }
+
+        /* Added minor style update for consistent tab behavior */
+        .secret-tab {
+            width: 90%;
+            margin: 20px auto;
+            max-width: 600px;
+            /* Added padding for smooth transition calculations */
+            padding-bottom: 5px; 
+        }
+    </style>
 </head>
 <body>
-    <div class="card">
-        <h1 class="animated-text">Bangaara you have brightened the world from...</h1>
-        
-        <div class="time-alive-container">
-            <div class="timer-label">We've spent a total of...</div>
-            <div id="time-alive-timer">
-                <div class="timer-unit"><span class="unit" id="days">0000</span><span class="label">Days</span></div>
-                <div class="timer-unit"><span class="unit" id="hours">00</span><span class="label">Hrs</span></div>
-                <div class="timer-unit"><span class="unit" id="minutes">00</span><span class="label">Mins</span></div>
-                <div class="timer-unit"><span class="unit" id="seconds">00</span><span class="label">Secs</span></div>
-            </div>
-        </div>
-        
-        <p class="message">
-            To the most wonderful person in my life, every day spent with you is a cherished gift. Thank you for filling my world with so much love and laughter. I hope you know how deeply you are loved. Happy Birthday!
-        </p>
+    
+    <div class="heart-container">
+    </div>
+    
+    <div class="card">
+        
+        <div class="confetti">🎉</div>
+        <div class="confetti-2">🥳</div> <div class="balloon">🎈</div>
 
-        <div class="photo-gallery animated-media">
-            <img src="placeholder_1.jpg" alt="A cherished memory 1" class="photo-slot-1" id="photo1" />
-            <img src="placeholder_2.jpg" alt="A cherished memory 2" class="photo-slot-2" id="photo2" />
-            <img src="placeholder_3.jpg" alt="A cherished memory 3" class="photo-slot-3" id="photo3" />
-            <img src="placeholder_4.jpg" alt="A cherished memory 4" class="photo-slot-4" id="photo4" />
-            
-            <img src="placeholder_5.jpg" alt="A cherished memory 5" class="photo-slot-5" id="photo5" />
-            <img src="placeholder_6.jpg" alt="A cherished memory 6" class="photo-slot-6" id="photo6" />
-            <img src="placeholder_7.jpg" alt="A cherished memory 7" class="photo-slot-7" id="photo7" />
-            <img src="placeholder_8.jpg" alt="A cherished memory 8" class="photo-slot-8" id="photo8" />
-        </div>
-        
-        <p class="signature">- Always Yours</p>
+        <h1 class="animated-text">Happy Happiest Birthday, Preetuuuuuu</h1>
+        <p class="message">Wishing you a day filled with all the joy, love, and happiness you bring to my life.</p>
+        
+        <div class="time-alive-container">
+            <p class="timer-label">Bangaara you have brightened the world from...</p>
+            <div id="time-alive-timer">Loading...</div>
+        </div>
+        
+        <div class="photo-gallery">
+                        <img src="IMG_20230812_WA0310.jpg" alt="A cherished memory 1" class="animated-media photo-slot-1">
+            <img src="IMG_20240428_172328.jpg" alt="A cherished memory 2" class="animated-media photo-slot-2">
+            <img src="IMG_20250219_145723.jpg" alt="A cherished memory 3" class="animated-media photo-slot-3">
+            <img src="IMG_20250403_111707.jpg" alt="A cherished memory 4" class="animated-media photo-slot-4">
+            <img src="IMG_20250404_134109.jpg" alt="A cherished memory 5" class="animated-media photo-slot-5">
+            <img src="Snapchat_1580573377.jpg" alt="A cherished memory 6" class="animated-media photo-slot-6">
+            <img src="preeth.jpeg" alt="A cherished memory 7" class="animated-media photo-slot-7">
+            <img src="pree.jpeg" alt="A cherished memory 8" class="animated-media photo-slot-8">
+        </div>
 
-        <div class="secret-tab">
-            <h3 class="tab-title">Unlock the Secret Message!</h3>
-            <p class="hint">***Hint: The password will be a celebration of you and me, think wisely.</p>
-            
-            <div id="passwordArea">
-                <input type="password" id="secretPassword" placeholder="Enter Secret Code">
-                <button onclick="checkPassword()">Unlock</button>
-            </div>
+        <div class="secret-tab" id="mainSecretTab">
+            <p class="tab-title" style="cursor: pointer;">✨ Unlock the Secret Message! ✨</p>
+            
+            <div id="passwordArea">
+                <p class="hint">**Hint:** The Password will be collaboration of u and me think wisely</p>
+                <input type="password" id="secretPassword" placeholder="Enter code">
+                <button onclick="checkSecretPassword()">Unlock</button>
+            </div>
+            
+            <div id="secretContent" class="secret-content">
+                <div style="padding: 20px;">
+                    <p style="font-size: 1.1em; line-height: 1.6;">
+                        My Dearest Pretuuuuu,
+                    </p>
+                    <p style="font-style: italic; margin-top: 15px; color: #000000;">
+                        If our life were a book, this day would be a glittering bookmark. You're not just my chapter; you are the Beautiful, vibrant cover and every meaningful line written within. Every laugh shared, every quiet moment, every dream we've whispered—they all form the constellation of my happiness, and you are its brightest star.
+                    </p>
+                    <p style="margin-top: 20px; font-weight: 600; color: #d81b60;">
+                        Thank you for being my safe harbor and my greatest adventure. Today, and every day, my wish is simple: to see that incredible smile of yours shine brighter than ever. I am eternally grateful to have you.
+                        </p>
+                    <p style="margin-top: 20px; font-weight: 600; color: #d81b60;">
+                        My dearest Preethuuuu (Bangaraaa) i wanna tell u one thing that i really loves u lot i think ningu gottilla ansute nan ninna est love madtiddini anta becuse nan love na sky ge compare maddidre may be adu kuda kammi agbahudu my love towards u is eternal Future alli en adru nin dura adru nang madve adru u will always remained as a uncompleted melody of my life thanks for ur love and trust bangara I wanna end up ur name as Misses Sai Harish or Preethi M i know nin wait madtiddiya e mathu nan bayi inda kelbeku anta i really really LOVE YOU LOT Bangara 😘😘😘
+                    </p>
+                    <p style="text-align: right; margin-top: 25px; font-family: 'Dancing Script', cursive; font-size: 1.5em; color: #e91e63;">
+                        Forever Yours, <br>- Sai Harish M
+                    </p>
+                    <div class="heart-icon" style="text-align: center; font-size: 2em; margin-top: 10px;">❤️</div>
+                </div>
+            </div>
+        </div>
 
-            <div id="secretContent" class="secret-content" style="max-height: 0; padding: 0;">
-                <p style="padding-top: 15px; color: #d81b60; font-size: 1.2em; font-weight: 600;">
-                    My heart is yours forever and a day! Thank you for the best years of my life. I promise to keep making new memories with you, one cherished photo at a time. I love you!
-                </p>
-            </div>
-        </div>
+        <div class="secret-tab" id="momentsTab" style="margin-top: 20px;">
+            <p class="tab-title" onclick="toggleMoments()" style="cursor: pointer;">📸 Our 10 Cherished Moments (Click to Reveal) ⏳</p>
+            
+            <div id="momentsContent" class="secret-content">
+                <div style="padding: 20px;">
+                    <div style="text-align: left; margin: 15px 0; padding: 10px; border-top: 1px dashed #ffc0cb;">
+                        <ol style="padding-left: 20px; list-style-type: decimal;">
+                            <li>The first time i saw u at lab u r too beautiful with those teeth braces.</li>
+                            <li>That Unstoppable late night chats where we have shared lot of things each other.</li>
+                            <li>The long drive we took when it was raining heavily from hema home to ur home.</li>
+                            <li>The dialogues we used to fun flirt in the college.</li>
+                            <li>The movie we watched i still remember u used to fall asleep on my shoulder.</li>
+                            <li>Our trips to different places.</li>
+                            <li>That time we had a serious talk and grew closer.</li>
+                            <li>The surprise gift you gave me for my birthday.</li>
+                            <li>When we first realized we were in love.</li>
+                            <li>The Day of February 1st of 2025.</li>
+                        </ol>
+                        <p style="font-style: italic; font-weight: bold; color: #d81b60; margin-top: 20px; text-align: center;">Cherishing every memory with you, my love!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="secret-tab" id="reasonsTab" style="margin-top: 20px;">
+            <p class="tab-title" onclick="toggleReasons()" style="cursor: pointer;">💖 100 Reasons I Adore You (Click to Reveal) 💖</p>
+            
+            <div id="reasonsContent" class="secret-content">
+                <div style="padding: 20px;">
+                    <div style="text-align: left; margin: 15px 0; padding: 10px; border-top: 1px dashed #ffc0cb;">
+                        <ol style="padding-left: 20px;">
 
-    </div>
+     <li>Your smile brightens my day.</li>
+     <li>You always know how to make me laugh.</li>
+     <li>Your 2/2 kindness inspires me.</li>
+     <li>You listen to me with genuine interest.</li>
+     <li>You support my dreams.</li>
+     <li>You have the most beautiful eyes.</li>
+     <li>You make me feel safe.</li>
+     <li>You are the best.</li>
+     <li>You are incredibly thoughtful.</li>
+     <li>You bring out the best in me.</li>
+     <li>You're my best friend.</li>
+     <li>You accept me as I am.</li>
+     <li>Your love for adventure.</li>
+     <li>The way you care for others.</li>
+     <li>Your creativity amazes me.</li>
+     <li>You make even the ordinary moments special.</li>
+     <li>Your sense of humor.</li>
+     <li>The way you look at me.</li>
+     <li>You are so patient.</li>
+     <li>You never give up on us.</li>
+     <li>You are my biggest cheerleader.</li>
+     <li>Your intelligence</li>
+     <li>You're a great cook.</li>
+     <li>You're my confidant.</li>
+     <li>You surprise me in the best ways.</li>
+     <li>You're always up for trying new things.</li>
+     <li>Your optimism is contagious.</li>
+     <li>You're incredibly hardworking.</li>
+     <li>Your loyalty.</li>
+     <li>You make me feel appreciated.</li>
+     <li>Your laugh is infectious.</li>
+     <li>You make me a better person.</li>
+     <li>Your sense of adventure.</li>
+     <li>You're always there when I need you.</li>
+     <li>Your passion for life.</li>
+     <li>The way you hold my hand.</li>
+     <li>You're an amazing listener.</li>
+     <li>Your generosity.</li>
+     <li>You respect me.</li>
+     <li>You're honest with me.</li>
+     <li>You're my rock.</li>
+     <li>You make me feel cherished.</li>
+     <li>You are my headche</li>
+     <li>You're my favorite person</li>
+     <li>Your resilience</li>
+     <li>You're my partner in crime.</li>
+     <li>Your strength.</li>
+     <li>You make me feel alive</li>
+     <li>Your dedication to our relationship.</li>
+     <li>You're always honest with me.</li>
+     <li>Your warm heart</li>
+     <li>You make everyday brighter.</li>
+     <li>Your sense of style.</li>
+     <li>You're my Darling</li>
+     <li>Your sense of adventure.</li>
+     <li>You always have the best ideas.</li>
+     <li>You're my inspiration.</li>
+     <li>Your selflessness.</li>
+     <li>You understand me.</li>
+     <li>You make me feel special.</li>
+     <li>Your positive attitude.</li>
+     <li>You're so caring.</li>
+     <li>You're my comfort.</li>
+     <li>Your smile is contagious.</li>
+     <li>You're my partner in everything.</li>
+     <li>Your laugh makes me happy.</li>
+     <li>You're my safe haven.</li>
+     <li>Your spontaneity.</li>
+     <li>You make me feel loved.</li>
+     <li>You're incredibly thoughtful.</li>
+     <li>You always make time for me.</li>
+     <li>You're my favorite person to talk to.</li>
+     <li>You make me feel important.</li>
+     <li>Your loyalty means the world to me.</li>
+     <li>You're my best friend and lover.</li>
+     <li>You're my constant support.</li>
+     <li>Your warmth.</li>
+     <li>You make me feel understood.</li>
+     <li>You're my perfect match.</li>
+     <li>Your patience with me.</li>
+     <li>You're my biggest fan.</li>
+     <li>You make me laugh like no one else.</li>
+     <li>Your loving nature.</li>
+     <li>You make life fun.</li>
+     <li>You're always there for me.</li>
+     <li>Your thoughtfulness.</li>
+     <li>You make my heart skip a beat.</li>
+     <li>You're my everything.</li>
+     <li>Your encouragement.</li>
+     <li>You're my greatest adventure</li>
+     <li>You make me feel at home</li>
+     <li>Your tenderness.</li>
+     <li>You make me smile.</li>
+     <li>Your dedication to us.</li>
+     <li>You're my forever.</li>
+     <li>You make life worth living.</li>
+     <li>You're my reason to smile.</li>
+     <li>You make me feel complete.</li>
+     <li>Your love is my strength</li>
+     <li>You're my one and only Sweet nayiii🐕🐕</li>
+                        </ol>
+                    </div>
+                    <p style="font-style: italic; font-weight: bold; color: #d81b60; margin-top: 20px; text-align: center;">I Wish U Many More Happy Returns of The Day My Dear Darling 😍😍🎉🎉🎊🎊</p>
+                </div>
+            </div>
+        </div>
+        <p class="signature">- Developed with Love by Sai Harish M</p>
+    </div>
 
-    <div class="heart-container" id="heartContainer"></div>
+    
+   <script>
+        // 1. **AUTHENTICATION CHECK** (Redirects if not logged in)
+        if (localStorage.getItem('userRole') !== 'user') {
+            alert("Please log in to view the card!");
+            window.location.href = 'login.html';
+        }
+        
+        // 2. **DYNAMIC CONTENT LOADER**
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- DYNAMIC/FALLBACK IMAGE LINKS ---
+            // 1. Check LocalStorage for links saved by the Admin page (temp_photo1, etc.)
+            const adminLinks = [];
+            for (let i = 1; i <= 8; i++) {
+                // localStorage.getItem returns null if key is not found, which is falsy
+                const link = localStorage.getItem(`temp_photo${i}`); 
+                adminLinks.push(link);
+            }
 
-    <span class="confetti">💖</span>
-    <span class="balloon">🎈</span>
-    <span class="confetti-2">🎁</span>
+            // 2. Fallback to Local Files/GitHub Relative Paths 
+            const localFallbackLinks = [
+                "IMG_20230812_WA0310.jpg",     // Photo Slot 1
+                "IMG_20240428_172328.jpg",     // Photo Slot 2
+                "IMG_20250219_145723.jpg",     // Photo Slot 3
+                "IMG_20250403_111707.jpg",     // Photo Slot 4
+                "IMG_20250404_134109.jpg",     // Photo Slot 5
+                "Snapchat_1580573377.jpg",     // Photo Slot 6
+                "preeth.jpeg",     // Photo Slot 7 
+                "pree.jpeg",     // Photo Slot 8
+            ];
 
-    <script>
-        // Set your custom date here (e.g., date when your relationship started)
-        const START_DATE = new Date('2020-03-24T00:00:00'); // Example Date: March 24, 2020
+            const photoLinks = adminLinks.map((adminLink, index) => {
+                // If an admin link exists and is non-null/non-empty, use it. Otherwise, use the local fallback.
+                // Since HTML already uses the fallback, this logic now only applies if an Admin/LocalStorage link is available.
+                return adminLink || localFallbackLinks[index];
+            });
+            // --- END DYNAMIC/FALLBACK SECTION ---
 
-        // --- CORE FUNCTIONS ---
+            // Apply photo links to all 8 slots (only overrides if adminLink is present)
+            photoLinks.forEach((link, index) => {
+                // Only update the src if a link came from LocalStorage (adminLink was present)
+                if (adminLinks[index]) { 
+                    const selector = `.photo-slot-${index + 1}`;
+                    const imgElement = document.querySelector(selector);
+                    if (imgElement) {
+                        imgElement.src = link;
+                    }
+                }
+            });
+            
+            // Initialize collapsible sections
+            const content = document.getElementById('secretContent');
+            const reasons = document.getElementById('reasonsContent');
+            const moments = document.getElementById('momentsContent'); 
 
-        // 1. Time Alive Counter
-        function initTimer() {
-            const timer = document.getElementById('time-alive-timer');
-            const units = { 
-                days: document.getElementById('days'), 
-                hours: document.getElementById('hours'), 
-                minutes: document.getElementById('minutes'), 
-                seconds: document.getElementById('seconds') 
-            };
+            if (content) {
+                // Ensure the secret message starts hidden
+                content.style.maxHeight = '0px'; 
+                content.style.overflow = 'hidden'; 
+                document.getElementById('passwordArea').style.display = 'block';
+            }
 
-            function updateTimer() {
-                const now = new Date();
-                const diff = now - START_DATE;
+            if (reasons) {
+                // Ensure the 100 reasons start hidden
+                reasons.style.maxHeight = '0px'; 
+                reasons.style.overflow = 'hidden';
+            }
+            
+            if (moments) {
+                moments.style.maxHeight = '0px';
+                moments.style.overflow = 'hidden';
+            }
+            
+            startTimeAliveCounter(); 
 
-                const s = Math.floor(diff / 1000);
-                const m = Math.floor(s / 60);
-                const h = Math.floor(m / 60);
-                const d = Math.floor(h / 24);
+            // NEW: Heart Rain Generator
+            const heartContainer = document.querySelector('.heart-container');
+            const heartEmojis = ['💖', '💕', '✨', '💜', '😍'];
+            const count = 50; 
 
-                units.seconds.textContent = (s % 60).toString().padStart(2, '0');
-                units.minutes.textContent = (m % 60).toString().padStart(2, '0');
-                units.hours.textContent = (h % 24).toString().padStart(2, '0');
-                units.days.textContent = d.toLocaleString(); // Use localeString for thousands separator
-            }
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                
+                const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.textContent = emoji;
 
-            updateTimer();
-            setInterval(updateTimer, 1000);
-        }
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                heart.style.animationDelay = `${Math.random() * 10}s`;
+                heart.style.fontSize = `${Math.random() * 1.5 + 1}em`; 
 
-        // 2. Load Photos from Admin LocalStorage
-        function loadAdminPhotos() {
-            for (let i = 1; i <= 8; i++) {
-                const tempLink = localStorage.getItem(`temp_photo${i}`);
-                const photoElement = document.getElementById(`photo${i}`);
-                
-                if (photoElement && tempLink) {
-                    photoElement.src = tempLink;
-                } 
-            }
-        }
-        
-        // 3. Secret Message Unlock
-        function checkPassword() {
-            // !! SET YOUR SECRET CODE HERE !!
-            const SECRET_CODE = "mar24"; 
-            
-            const input = document.getElementById('secretPassword').value.trim().toLowerCase();
-            const content = document.getElementById('secretContent');
-            const passwordArea = document.getElementById('passwordArea');
-            
-            if (input === SECRET_CODE) {
-                // Show content by setting max-height to a large value
-                content.style.maxHeight = content.scrollHeight + "px"; 
-                content.style.padding = "15px 0";
-                
-                // Hide the password area
-                passwordArea.style.display = 'none';
-                
-                // Start a special animation burst for the reveal
-                startHeartBurst(document.querySelector('.secret-tab'));
-
-            } else {
-                alert("Incorrect code. Try the hint!");
-            }
-        }
-        
-        // --- ANIMATION/UX FUNCTIONS (For completeness) ---
-        
-        function startHeartBurst(element) {
-            const rect = element.getBoundingClientRect();
-            const container = document.body;
-            
-            for(let i = 0; i < 15; i++) { // Generate 15 hearts for a burst
-                const heart = document.createElement('span');
-                heart.classList.add('burst-heart');
-                heart.textContent = '💗'; // Use a different heart emoji
-                
-                // Position heart at the center of the element that triggered the burst
-                const startX = rect.left + rect.width / 2;
-                const startY = rect.top + rect.height / 2;
-                
-                heart.style.left = `${startX}px`;
-                heart.style.top = `${startY}px`;
-                
-                // Random travel distance and rotation
-                const travelX = (Math.random() - 0.5) * 400; // -200 to +200
-                const travelY = (Math.random() - 1) * 300 - 100; // Always fly mostly upwards
-                const duration = 1.5 + Math.random(); // 1.5s to 2.5s duration
-                
-                heart.style.setProperty('--travel-x', `${travelX}px`);
-                heart.style.setProperty('--travel-y', `${travelY}px`);
-                heart.style.animationDuration = `${duration}s`;
-                heart.style.fontSize = `${1 + Math.random() * 1.5}em`;
-                
-                container.appendChild(heart);
-                
-                // Clean up the element after the animation finishes
-                setTimeout(() => heart.remove(), duration * 1000);
-            }
-        }
-        
-        function createFloatingHearts() {
-            const container = document.getElementById('heartContainer');
-            const numHearts = 30; // Number of floating hearts
-            
-            for (let i = 0; i < numHearts; i++) {
-                const heart = document.createElement('span');
-                heart.classList.add('floating-heart');
-                
-                // Choose a random heart emoji
-                const hearts = ['💖', '💕', '💘', '💞', '💗'];
-                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                
-                // Randomize starting position, size, and speed
-                heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.fontSize = `${0.8 + Math.random() * 1.5}em`;
-                heart.style.animationDelay = `${Math.random() * 50}s`;
-                heart.style.animationDuration = `${10 + Math.random() * 10}s`; // Slower speed
-                heart.style.opacity = `${0.2 + Math.random() * 0.6}`;
-                
-                container.appendChild(heart);
-            }
-        }
+                heartContainer.appendChild(heart);
+            }
+        });
 
 
-        // --- INITIALIZATION ---
-        window.onload = function() {
-            // Check if user is logged in as 'user' before showing the page
-            if (localStorage.getItem('userRole') !== 'user') {
-                // Allow direct access if no userRole is set, or redirect to login
-                if (!localStorage.getItem('loggedInUser')) {
-                    // console.log("No login state found, proceeding to page.");
-                } else {
-                    alert("Access Denied. Redirecting to login.");
-                    window.location.href = 'login.html';
-                }
-            }
-            
-            initTimer();
-            loadAdminPhotos(); // IMPORTANT: This loads the 8 images
-            createFloatingHearts();
-        };
+        // 5. **TIME ALIVE COUNTER LOGIC**
+        // !! IMPORTANT: SET THE START DATE/TIME HERE !!
+        // Format: 'Month Day, Year 00:00:00' (e.g., 'November 3, 2000 00:00:00')
+        const START_DATE = new Date('November 3, 2000 00:00:00').getTime(); 
+        
+        function startTimeAliveCounter() {
+            const timerElement = document.getElementById('time-alive-timer');
+            
+            if (!timerElement) return;
 
-    </script>
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = now - START_DATE;
+                
+                if (distance < 0) {
+                    timerElement.innerHTML = "Counting down to the big day!";
+                    return;
+                }
+
+                // Calculations for days, hours, minutes and seconds
+                const totalSeconds = Math.floor(distance / 1000);
+                
+                const secondsInDay = 60 * 60 * 24;
+                const secondsInHour = 60 * 60;
+                const secondsInMinute = 60;
+                
+                // Days (This must be the whole number of days)
+                const days = Math.floor(totalSeconds / secondsInDay);
+                let remainingSeconds = totalSeconds % secondsInDay;
+                
+                // Hours
+                const hours = Math.floor(remainingSeconds / secondsInHour);
+                remainingSeconds = remainingSeconds % secondsInHour;
+                
+                // Minutes
+                const minutes = Math.floor(remainingSeconds / secondsInMinute);
+                
+                // Seconds
+                const seconds = remainingSeconds % secondsInMinute;
+                
+                // Display the result with the new stacked structure
+                timerElement.innerHTML = 
+                    `<div class="timer-unit"><span class="unit">${days.toLocaleString('en-US')}</span><span class="label">Days</span></div>` +
+                    `<div class="timer-unit"><span class="unit">${String(hours).padStart(2, '0')}</span><span class="label">Hrs</span></div>` +
+                    `<div class="timer-unit"><span class="unit">${String(minutes).padStart(2, '0')}</span><span class="label">Mins</span></div>` +
+                    `<div class="timer-unit"><span class="unit">${String(seconds).padStart(2, '0')}</span><span class="label">Secs</span></div>`;
+            }, 1000);
+        }
+
+        // 3. **SECRET MESSAGE LOGIC**
+        const CORRECT_PASSWORD = "1903"; // !! SET YOUR PASSWORD HERE !!
+
+        function checkSecretPassword() {
+            const enteredPassword = document.getElementById('secretPassword').value;
+            const content = document.getElementById('secretContent');
+            const passwordArea = document.getElementById('passwordArea');
+
+            if (enteredPassword === CORRECT_PASSWORD) {
+                passwordArea.style.display = 'none';
+                content.style.maxHeight = content.scrollHeight + "px"; 
+                document.querySelector('#mainSecretTab .tab-title').textContent = "💌 Secret Message Revealed! 🥳";
+            } else {
+                alert("Incorrect code. Try the hint!");
+                document.getElementById('secretPassword').value = '';
+            }
+        }
+        
+        // 4. **MOMENTS TOGGLE LOGIC**
+        function toggleMoments() {
+            const moments = document.getElementById('momentsContent');
+            const title = document.querySelector('#momentsTab .tab-title');
+            
+            if (moments.style.maxHeight === '0px' || moments.style.maxHeight === '') {
+                moments.style.maxHeight = moments.scrollHeight + "px";
+                title.textContent = "🔽 Our 10 Cherished Moments (Click to Hide) 💖";
+            } else {
+                moments.style.maxHeight = '0px';
+                title.textContent = "📸 Our 10 Cherished Moments (Click to Reveal) ⏳";
+            }
+        }
+
+        // 5. **REASONS TOGGLE LOGIC**
+        function toggleReasons() {
+            const reasons = document.getElementById('reasonsContent');
+            const title = document.querySelector('#reasonsTab .tab-title');
+            
+            if (reasons.style.maxHeight === '0px' || reasons.style.maxHeight === '') {
+                reasons.style.maxHeight = reasons.scrollHeight + "px";
+                title.textContent = "🔽 100 Reasons I Adore You (Click to Hide) 💖";
+            } else {
+                reasons.style.maxHeight = '0px';
+                title.textContent = "💖 100 Reasons I Adore You (Click to Reveal) 💖";
+            }
+        }
+    </script>
 </body>
 </html>
+
