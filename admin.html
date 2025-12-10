@@ -26,7 +26,7 @@
 <body>
     <div class="admin-container">
         <h2>Admin Content Uploader</h2>
-        <p id="current-media-message" style="margin-bottom: 20px; color: #5d4037;">Paste **full Google Drive sharing links** or public URLs below. Existing links are pre-filled.</p>
+        <p id="current-media-message" style="margin-bottom: 20px; color: #5d4037;">Paste **full Google Drive sharing links** or public URLs below.</p>
         
         <label for="newPhoto1">Photo 1 Filename/URL:</label>
         <input type="text" id="newPhoto1" placeholder="Paste Google Drive Sharing Link">
@@ -61,19 +61,6 @@
             alert("Access Denied. Redirecting to login.");
             window.location.href = 'login.html';
         }
-        
-        // NEW: Function to load existing links from local storage
-        document.addEventListener('DOMContentLoaded', loadCurrentLinks);
-
-        function loadCurrentLinks() {
-            for (let i = 1; i <= 8; i++) {
-                const storedLink = localStorage.getItem(`temp_photo${i}`);
-                if (storedLink) {
-                    // Display the stored link in the input field
-                    document.getElementById(`newPhoto${i}`).value = storedLink;
-                }
-            }
-        }
 
         // Function to convert Google Drive Sharing Link to Direct Embed Link
         function getDriveDirectLink(sharingUrl) {
@@ -90,13 +77,11 @@
         }
 
         function applyUpdates() {
+            // UPDATED: Loop through all 8 photos
             let photoLinks = {};
             for (let i = 1; i <= 8; i++) {
                 let link = document.getElementById(`newPhoto${i}`).value.trim();
-                // Check if the link is a full URL (contains http) before attempting Drive conversion
-                if (link.startsWith('http')) {
-                    link = getDriveDirectLink(link);
-                }
+                if (link) link = getDriveDirectLink(link);
                 photoLinks[`temp_photo${i}`] = link;
             }
 
@@ -114,7 +99,7 @@
             localStorage.removeItem('loggedInUser');
             localStorage.removeItem('userRole');
             
-            // Remove all 8 photo links from storage on logout
+            // UPDATED: Remove all 8 photo links from storage on logout
             for (let i = 1; i <= 8; i++) {
                 localStorage.removeItem(`temp_photo${i}`);
             }
