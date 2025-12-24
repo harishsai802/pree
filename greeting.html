@@ -446,6 +446,9 @@ musicToggle.addEventListener('click', toggleMusic);
 
 // 2. Click Handler for Heart Burst & Auto-Play
 document.addEventListener('click', (e) => {
+    const music = document.getElementById('birthdayMusic');
+    const musicIcon = document.getElementById('musicIcon');
+
     // Heart Burst Effect
     const burstCount = 10;
     for (let i = 0; i < burstCount; i++) {
@@ -460,18 +463,12 @@ document.addEventListener('click', (e) => {
         setTimeout(() => heart.remove(), 1000);
     }
 
-    // Attempt to play music on first interaction if not muted
+    // This part forces the music to play on the first click
     if (music.paused && !isMutedManually) {
-        music.volume = 0;
         music.play().then(() => {
-            let fadeAudio = setInterval(() => {
-                if (music.volume < 0.8) {
-                    music.volume += 0.1;
-                } else {
-                    clearInterval(fadeAudio);
-                }
-            }, 200);
-        }).catch(err => console.log("Waiting for user interaction..."));
+            music.volume = 0.8;
+            musicIcon.textContent = '🎵';
+        }).catch(err => console.log("Playback error:", err));
     }
 });
     </script>
@@ -484,6 +481,7 @@ document.addEventListener('click', (e) => {
 </audio>       
 </body>
 </html>
+
 
 
 
