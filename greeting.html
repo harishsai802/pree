@@ -418,9 +418,54 @@
                 title.textContent = "💖 100 Reasons I Adore You (Click to Reveal) 💖";
             }
         }
+           // --- NEW FEATURES ---
+
+        // 1. Music Fade-In Logic
+        const music = document.getElementById('birthdayMusic');
+
+        function playWithFadeIn() {
+            music.volume = 0;
+            music.play().catch(error => console.log("Interaction required for audio"));
+            let fadeAudio = setInterval(() => {
+                if (music.volume < 0.9) {
+                    music.volume += 0.1;
+                } else {
+                    clearInterval(fadeAudio);
+                }
+            }, 200); // Fades in over 2 seconds
+        }
+
+        // Start music and effects on first interaction
+        document.body.addEventListener('click', () => {
+            if (music.paused) playWithFadeIn();
+        }, { once: true });
+
+        // 2. Heart Burst Effect
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.className = 'heart-burst';
+                
+                // Position at click location
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                
+                // Randomize direction using CSS variables
+                heart.style.setProperty('--tx', (Math.random() - 0.5) * 400 + 'px');
+                heart.style.setProperty('--ty', (Math.random() - 0.5) * 400 + 'px');
+                
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
     </script>
+        <audio id="birthdayMusic" loop>
+        <source src="Hum.mp3" type="audio/mpeg">
+    </audio>
 </body>
 </html>
+
 
 
 
