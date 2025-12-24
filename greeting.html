@@ -420,51 +420,71 @@
         }
            // --- NEW FEATURES ---
 
-        // 1. Music Fade-In Logic
-        const music = document.getElementById('birthdayMusic');
+const music = document.getElementById('birthdayMusic');
+const musicToggle = document.getElementById('musicToggle');
+const musicIcon = document.getElementById('musicIcon');
+let isMutedManually = false;
 
-        function playWithFadeIn() {
-            music.volume = 0;
-            music.play().catch(error => console.log("Interaction required for audio"));
+// 1. Music Toggle Logic
+function toggleMusic(e) {
+    if(e) e.stopPropagation(); 
+
+    if (music.paused) {
+        music.play();
+        musicIcon.textContent = '🎵';
+        musicToggle.classList.remove('muted');
+        isMutedManually = false;
+    } else {
+        music.pause();
+        musicIcon.textContent = '🔇';
+        musicToggle.classList.add('muted');
+        isMutedManually = true;
+    }
+}
+
+musicToggle.addEventListener('click', toggleMusic);
+
+// 2. Click Handler for Heart Burst & Auto-Play
+document.addEventListener('click', (e) => {
+    // Heart Burst Effect
+    const burstCount = 10;
+    for (let i = 0; i < burstCount; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.className = 'heart-burst';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.style.setProperty('--tx', (Math.random() - 0.5) * 400 + 'px');
+        heart.style.setProperty('--ty', (Math.random() - 0.5) * 400 + 'px');
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+    }
+
+    // Attempt to play music on first interaction if not muted
+    if (music.paused && !isMutedManually) {
+        music.volume = 0;
+        music.play().then(() => {
             let fadeAudio = setInterval(() => {
-                if (music.volume < 0.9) {
+                if (music.volume < 0.8) {
                     music.volume += 0.1;
                 } else {
                     clearInterval(fadeAudio);
                 }
-            }, 200); // Fades in over 2 seconds
-        }
-
-        // Start music and effects on first interaction
-        document.body.addEventListener('click', () => {
-            if (music.paused) playWithFadeIn();
-        }, { once: true });
-
-        // 2. Heart Burst Effect
-        document.addEventListener('click', (e) => {
-            for (let i = 0; i < 10; i++) {
-                const heart = document.createElement('div');
-                heart.innerHTML = '❤️';
-                heart.className = 'heart-burst';
-                
-                // Position at click location
-                heart.style.left = e.clientX + 'px';
-                heart.style.top = e.clientY + 'px';
-                
-                // Randomize direction using CSS variables
-                heart.style.setProperty('--tx', (Math.random() - 0.5) * 400 + 'px');
-                heart.style.setProperty('--ty', (Math.random() - 0.5) * 400 + 'px');
-                
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 1000);
-            }
-        });
+            }, 200);
+        }).catch(err => console.log("Waiting for user interaction..."));
+    }
+});
     </script>
-        <audio id="birthdayMusic" loop>
-        <source src="Hum.mp3" type="audio/mpeg">
-    </audio>
+        <div id="musicToggle" class="music-control">
+    <span id="musicIcon">🎵</span>
+</div>
+
+<audio id="birthdayMusic" loop>
+    <source src="Hum.mp3" type="audio/mpeg">
+</audio>       
 </body>
 </html>
+
 
 
 
