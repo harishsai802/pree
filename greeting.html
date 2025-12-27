@@ -109,6 +109,26 @@
                 </div>
             </div>
         </div>
+            <div class="secret-tab" id="lyricsTab" style="margin-top: 20px;">
+    <p class="tab-title" onclick="toggleLyrics()" style="cursor: pointer;">🎵 A perfect lyrics that I dedicate to u (Click to Reveal) 🎵</p>
+    
+    <div id="lyricsContent" class="secret-content">
+        <div style="padding: 20px; text-align: center;">
+            <p style="font-style: italic; font-size: 1.2em; color: #4a4a4a; line-height: 1.8;">
+                "Your love is all I need<br>
+                To feel complete...<br>
+                Every breath I take, I take for you."
+            </p>
+            
+            <div id="lyricsMusicPlayer" style="margin-top: 20px; display: none;">
+                <p style="font-weight: bold; color: #d81b60; margin-bottom: 10px;">Click to play our song:</p>
+                <button id="lyricsPlayBtn" onclick="toggleMusicFromLyrics()" style="padding: 10px 25px; border-radius: 20px; border: none; background: #e91e63; color: white; cursor: pointer; font-family: 'Poppins';">
+                    ▶️ Play Song
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
         <div class="secret-tab" id="reasonsTab" style="margin-top: 20px;">
             <p class="tab-title" onclick="toggleReasons()" style="cursor: pointer;">💖 100 Reasons I Adore You (Click to Reveal) 💖</p>
             
@@ -426,23 +446,43 @@ const musicIcon = document.getElementById('musicIcon');
 let isMutedManually = false;
 
 // 1. Music Toggle Logic
-function toggleMusic(e) {
-    if(e) e.stopPropagation(); 
-
-    if (music.paused) {
-        music.play();
-        musicIcon.textContent = '🎵';
-        musicToggle.classList.remove('muted');
-        isMutedManually = false;
+function toggleLyrics() {
+    const lyrics = document.getElementById('lyricsContent');
+    const player = document.getElementById('lyricsMusicPlayer');
+    const title = document.querySelector('#lyricsTab .tab-title');
+    const floatingBtn = document.getElementById('musicToggle'); // The floating button
+    
+    if (lyrics.style.maxHeight === '0px' || lyrics.style.maxHeight === '') {
+        lyrics.style.maxHeight = lyrics.scrollHeight + "px";
+        title.textContent = "🔽 Dedicated Lyrics (Click to Hide) 💖";
+        
+        // REVEAL the play button and the floating control
+        player.style.display = 'block';
+        floatingBtn.style.display = 'flex'; 
     } else {
-        music.pause();
-        musicIcon.textContent = '🔇';
-        musicToggle.classList.add('muted');
-        isMutedManually = true;
+        lyrics.style.maxHeight = '0px';
+        title.textContent = "🎵 A perfect lyrics that I dedicate to u (Click to Reveal) 🎵";
     }
 }
 
-musicToggle.addEventListener('click', toggleMusic);
+// Function specifically for the button inside the lyrics
+function toggleMusicFromLyrics() {
+    const music = document.getElementById('birthdayMusic');
+    const btn = document.getElementById('lyricsPlayBtn');
+    const musicIcon = document.getElementById('musicIcon');
+
+    if (music.paused) {
+        music.play();
+        btn.innerHTML = "⏸️ Pause Song";
+        musicIcon.textContent = '🎵';
+        document.getElementById('musicToggle').classList.remove('muted');
+    } else {
+        music.pause();
+        btn.innerHTML = "▶️ Play Song";
+        musicIcon.textContent = '🔇';
+        document.getElementById('musicToggle').classList.add('muted');
+    }
+}
 
 // 2. Click Handler for Heart Burst & Auto-Play
 document.addEventListener('click', (e) => {
@@ -481,6 +521,7 @@ document.addEventListener('click', (e) => {
 </audio>       
 </body>
 </html>
+
 
 
 
